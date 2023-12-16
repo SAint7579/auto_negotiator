@@ -1,5 +1,20 @@
 import streamlit as st
+from openai import OpenAI
+import json
+import sys
+sys.path.append('C:/VS code projects/Road to Hack/auto_negotiator/Utilities/')
+from request_functions import show_json
+from request_functions import submit_message
+from request_functions import get_response
+from request_functions import pretty_print
+from request_functions import wait_on_run
+from request_functions import check_response
+from request_functions import function_json
+from request_functions import MATH_ASSISTANT_ID
+from request_functions import thread
+from request_functions import client
 
+print(thread.id)
 st.title("Request Bot")
 
 # Initialize chat history
@@ -10,6 +25,7 @@ if "messages" not in st.session_state:
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
+        
 
 # React to user input
 if prompt := st.chat_input("What is up?"):
@@ -17,8 +33,17 @@ if prompt := st.chat_input("What is up?"):
     st.chat_message("user").markdown(prompt)
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
+    
+    ## Send user message to assistant and display assistant response
+    run = submit_message(client,MATH_ASSISTANT_ID, thread, prompt)
+    run = wait_on_run(client,run, thread)
+    
+    if run.status == 'requires_action':
+        response = check_response(client,thread,run)
+    else:
+        response = pretty_print(get_response(client,thread))
 
-    response = f"Echo: {prompt}"
+    response = f"{response}"
     # Display assistant response in chat message container
     with st.chat_message("assistant"):
         st.markdown(response)
