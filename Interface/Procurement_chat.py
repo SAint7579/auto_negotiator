@@ -60,10 +60,12 @@ if prompt := st.chat_input("What is up?"):
     # Add assistant response to chat history
     if completion is True:
         print('done')
+        print(run.status)
         json_data = run.required_action.submit_tool_outputs.tool_calls[0].function.arguments
         with open(requirements_path, 'w') as json_file:
             json.dump(json_data, json_file)
         st.json(json_data)
     else:
         print('not done')
+        print(run.status)
     st.session_state.messages.append({"role": "assistant", "content": response})
