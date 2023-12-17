@@ -3,9 +3,9 @@ import chromadb
 from chromadb.utils import embedding_functions
 import json
 import pandas as pd
-vendor = pd.read_csv("C:/Users/shubh/Documents/vendors.csv")
+vendor = pd.read_csv("C:/Users/vishw/OneDrive/Desktop/Projects/auto_negotiator/Utilities/vendors.csv")
 
-with open('C:/Users/shubh/Documents/openAI_api.json') as f:
+with open('C:/Users/vishw/OneDrive/Desktop/Projects/daemon-dialoguers/openAI_api.json') as f:
     key = json.load(f)
 
 def text_Embedding(text):
@@ -25,7 +25,7 @@ def get_Similarity(query):
     ids=ids
     )
     
-    vector=text_embedding(query)
+    vector=text_Embedding(query)
     
     results=collection.query(    
     query_embeddings=vector,
