@@ -4,6 +4,7 @@ import os
 import json
 from openai import OpenAI
 import time
+import numpy as np
 os.environ['OPENAI_API_KEY'] = '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'
 function_json = {
   "name": "get_vendor_quotation",
@@ -44,7 +45,7 @@ for i in [i.id for i in client.beta.assistants.list().data if i.name == "Summari
     client.beta.assistants.delete(i)
 assistant = client.beta.assistants.create(
     name="Summarization_Assistant_ani",
-    instructions=f"You are an AI assistant who is supposed to get the quotation and time of delivery from the vendor. These are the requirements:{specification}. You are supposed to collect the three main information: Can the requirements be met, what is the price and how long will it take to deliver (in days). All these requirements need to be provided by the vendor in chat. Do not invoke the function until you have all the information or if the vendor has rejected it. Always write your responses in form of a mail on behalf of Vishwa Singh.",
+    instructions=f"You are an AI assistant who is supposed to get the quotation and time of delivery from the vendor. These are the requirements:{specification} You are supposed to collect the three main information: Can the requirements be met, what is the price and how long will it take to deliver (in days). All these requirements need to be provided by the vendor in chat. Do not assume zero. Always write your responses in form of a mail on behalf of Vishwa Singh.",
     model="gpt-4-1106-preview",
     tools=[
         {"type": "function", "function": function_json},
@@ -114,7 +115,8 @@ def check_response(client,thread,run):
     name = tool_call.function.name
     arguments = json.loads(tool_call.function.arguments)
     
-    responses = ['true'] if arguments['quotation'] >0 and arguments['procurement_days'] > 0 else ['false']
+    responses = ['true'] if (arguments['quotation'] == 'NA' and arguments['procurement_days']== 'NA') or (arguments['quotation'] > 0 and arguments['procurement_days'] > 0) else ['false']
+
 
     run = client.beta.threads.runs.submit_tool_outputs(
         thread_id=thread.id,
