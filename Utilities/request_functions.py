@@ -2,9 +2,12 @@ import numpy as np
 import pandas as pd
 import json
 from openai import OpenAI
+import streamlit as st
 
 def show_json(obj):
     display(json.loads(obj.model_dump_json()))
+
+responses = ['false']
 
 function_json = {
   "name": "get_specifications",
@@ -28,8 +31,8 @@ function_json = {
         "description": "Number of days to fulfill the order.Needs to be greater than 0"
       },
       "need_logo": {
-        "type": "boolean",
-        "description": "Is a logo or image needed on the merchandise? "
+        "type": "string",
+        "description": "Description of the logo required on the merchandise. This should include position of the logo, size of the logo, printing method of logo ,color of the logo, etc. Make it NA if no logo is required."
       }
     },
     "required": [
@@ -44,7 +47,7 @@ function_json = {
 }
 
 ## initiate client, assistant and thread
-client = OpenAI(api_key="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")
+client = OpenAI(api_key="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")
 for i in [i.id for i in client.beta.assistants.list().data if i.name == "Summarization_Assistant_ani"]:
     client.beta.assistants.delete(i)
 assistant = client.beta.assistants.create(
@@ -83,7 +86,7 @@ import time
 #         print(f"{m.role}: {m.content[0].text.value}")
 #     print()
 def pretty_print(messages):
-    result = "# Messages\n"
+    result = ""
     for m in messages.data[-1:]:
         result += f"{m.content[0].text.value}\n"
     result += "\n"
@@ -118,7 +121,9 @@ def check_response(client,thread,run):
             }
         ],
     )
+    
     run = wait_on_run(client,run, thread)
     print(run.status)
-    return pretty_print(get_response(client,thread))
-    
+    completion = True if responses[0] == 'true' else False
+    return pretty_print(get_response(client,thread)), completion
+
