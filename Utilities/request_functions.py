@@ -47,7 +47,7 @@ function_json = {
 }
 
 ## initiate client, assistant and thread
-client = OpenAI(api_key="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")
+client = OpenAI(api_key="")
 for i in [i.id for i in client.beta.assistants.list().data if i.name == "Summarization_Assistant_ani"]:
     client.beta.assistants.delete(i)
 assistant = client.beta.assistants.create(

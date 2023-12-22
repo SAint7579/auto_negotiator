@@ -3,7 +3,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
 import os
 from openai import OpenAI
-os.environ['OPENAI_API_KEY'] = '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'
+os.environ['OPENAI_API_KEY'] = ''
 
 import pandas as pd
 import numpy as np
@@ -34,7 +34,7 @@ function_json = {
 }
 
 def initiate_client(their_offer, our_offer):
-    client = OpenAI(api_key="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")
+    client = OpenAI(api_key="")
     for i in [i.id for i in client.beta.assistants.list().data if i.name == "Summarization_Assistant_ani"]:
         client.beta.assistants.delete(i)
     assistant = client.beta.assistants.create(

@@ -9,7 +9,7 @@ with open('C:/Users/vishw/OneDrive/Desktop/Projects/daemon-dialoguers/openAI_api
     key = json.load(f)
 
 def text_Embedding(text):
-    response = openai.OpenAI(api_key='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')
+    response = openai.OpenAI(api_key='')
     response = response.embeddings.create(model="text-embedding-ada-002", input=text)
     return response.data[0].embedding
 

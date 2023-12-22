@@ -5,7 +5,7 @@ import json
 from openai import OpenAI
 import time
 import numpy as np
-os.environ['OPENAI_API_KEY'] = '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'
+os.environ['OPENAI_API_KEY'] = ''
 function_json = {
   "name": "get_vendor_quotation",
   "parameters": {
@@ -40,7 +40,7 @@ function_json = {
 
 
 specification = json.loads(json.load(open('C:/VS code projects/Road to Hack/auto_negotiator/Utilities/requirements.json','r')))
-client = OpenAI(api_key="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")
+client = OpenAI(api_key="")
 for i in [i.id for i in client.beta.assistants.list().data if i.name == "Summarization_Assistant_ani"]:
     client.beta.assistants.delete(i)
 assistant = client.beta.assistants.create(
