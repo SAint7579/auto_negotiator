@@ -2,7 +2,8 @@
 auto.Negotia s an end-to-end procurement automation platform utilizing a chatbot interface and automated email communication. Here's a breakdown of its functionality:
 
 **Customer Interaction:** The chatbot engages with customers to gather specific details about the product they require. The chatbot compiles this information into a structured JSON format, capturing the correct specifications of the customer's needs.
-
+<img src="Images/Bot1.png"></img>
+<img src="Images/Bot11.png"></img>
 **Vendor Matching:** The system has a predefined list of vendors, each with descriptions of the products they offer. Using the embeddings, the system matches the customer's requirements to suitable vendors from the list using similarity metrics. 
 
 **Request for Quotation (RFQ):** The system automatically generates and sends emails to the matched vendors, requesting quotes, timelines, and additional details. Vendors are prompted to provide information about what they can and cannot deliver, along with any alternative solutions they might offer. 
