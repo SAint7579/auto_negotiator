@@ -1,9 +1,9 @@
 # auto.Negotia - Automatic Procurement Agent
 auto.Negotia s an end-to-end procurement automation platform utilizing a chatbot interface and automated email communication. Here's a breakdown of its functionality:
 
-**Customer Interaction:** The chatbot engages with customers to gather specific details about the product they require. The chatbot compiles this information into a structured JSON format, capturing the correct specifications of the customer's needs.
-<img src="Images/Bot1.png" width = "700" height = "400"></img>
-<img src="Images/Bot11.png" width = "700" height = "400"></img>
+**Customer Interaction:** The chatbot engages with customers to gather specific details about the product they require. The chatbot compiles this information into a structured JSON format, capturing the correct specifications of the customer's needs. <br>
+<img src="Images/Bot1.png" width = "500" height = "400"></img>
+<img src="Images/Bot11.png" width = "500" height = "400"></img>
 <br>
 **Vendor Matching:** The system has a predefined list of vendors, each with descriptions of the products they offer. Using the embeddings, the system matches the customer's requirements to suitable vendors from the list using similarity metrics. 
 
